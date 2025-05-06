@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dein Geschenk!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #000a33, #0d0050);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            color: white;
+            overflow-x: hidden;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            color: #333;
+            margin: 20px;
+        }
+        h1 {
+            color: #ff3399; /* Knalliges Pink */
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .gift-container {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(to bottom, #0066ff, #0099ff); /* Knalliges Blau */
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .planetarium-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 3px solid #ffcc00; /* Knalliges Gelb */
+        }
+        .details-box {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            background-color: #ffcc00; /* Knalliges Gelb */
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #ffd633;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+            z-index: 1;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .constellation {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            opacity: 0.3;
+            z-index: 1;
+        }
+        .big-dipper {
+            top: 10%;
+            right: 5%;
+        }
+        .orion {
+            bottom: 5%;
+            left: 5%;
+        }
+        #personalMessage {
+            font-style: italic;
+            font-size: 22px;
+            margin: 30px 0;
+            line-height: 1.8;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: rgba(255, 51, 153, 0.2); /* Knalliges Pink transparent */
+        }
+        .ticket {
+            background: linear-gradient(135deg, #ff3399, #ff66cc); /* Knalliges Pink */
+            padding: 20px;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: rotate(-2deg);
+            position: relative;
+        }
+        .ticket:before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(135deg, #0066ff, #ffcc00, #ff3399);
+            z-index: -1;
+            border-radius: 18px;
+            opacity: 0.5;
+            animation: rotate 3s linear infinite;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .ticket-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: white;
+        }
+        .ticket-details {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .header-animation span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s forwards;
+        }
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .reveal-text {
+            position: relative;
+            color: transparent;
+            animation: reveal 3s forwards;
+        }
+        @keyframes reveal {
+            0% { color: transparent; }
+            90% { color: transparent; }
+            100% { color: white; }
+        }
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, rgba(255, 255, 255, 0));
+            animation: shoot 2s linear forwards;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        @keyframes shoot {
+            from {
+                transform: translateX(-100px) translateY(-100px) rotate(45deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(calc(100vw + 100px)) translateY(calc(100vh + 100px)) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .saturn {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(to bottom, #ffcc00, #ff9900);
+            top: 15%;
+            right: 10%;
+            opacity: 0.7;
+        }
+        .saturn:after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 20px;
+            background: rgba(255, 204, 0, 0.4);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(20deg);
+        }
+        .jupiter {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(to bottom, #ff9966, #ff6600);
+            bottom: 15%;
+            left: 8%;
+            opacity: 0.7;
+        }
+        .moon {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ffffff, #cccccc);
+            top: 25%;
+            left: 15%;
+            opacity: 0.7;
+            box-shadow: inset -15px -15px 0 0 rgba(0, 0, 0, 0.2);
+        }
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            animation: fall 5s ease-in infinite;
+            z-index: 1;
+        }
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                top: -20px;
+                transform: translateX(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                top: 100vh;
+                transform: translateX(100px) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="planet saturn"></div>
+    <div class="planet jupiter"></div>
+    <div class="planet moon"></div>
+    
+    <div class="container">
+        <h1 id="headerText">Woop Woop!</h1>
+        
+        <p>Was gibt es Schöneres, als gemeinsam die Sterne zu entdecken?</p>
+        
+        <div class="gift-container">
+            
+            <h2>Deine Einladung zum Sternegucken im Planetarium!</h2>
+            
+            <div id="personalMessage">
+                Ich möchte mit dir die Sterne entdecken. 
+                Lass uns gemeinsam in die Weiten des Universums eintauchen und die Wunder des Nachthimmels bestaunen!
+            </div>
+            
+            <div class="ticket" id="ticket">
+                <div class="ticket-title">EINTRITTSKARTE</div>
+                <div class="ticket-details">Datum: deine Wahl</div>
+                <div class="ticket-details">Ort: Planetarium</div>
+                <div class="ticket-details">"Reise zu den Sternen" Show</div>
+                <div class="ticket-details"><strong>3 Personen</strong></div>
+                <div class="ticket-details">Dein Schatzihasi kommt natürlich mit</div>
+            </div>
+            
+            <div class="details-box">
+                <h3>Was dich erwartet:</h3>
+                <p>Eine faszinierende 60-minütige Show unter dem Sternenhimmel mit wunderbaren Einblicken in unser Universum</p>
+            </div>
+        </div>
+        
+
+    <script>
+        // Animierter Header-Text
+        window.addEventListener('load', function() {
+            const headerText = document.getElementById('headerText');
+            const text = headerText.textContent;
+            let newHTML = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                newHTML += `<span style="animation-delay: ${i * 0.1}s">${text[i]}</span>`;
+            }
+            
+            headerText.innerHTML = newHTML;
+            
+            // Sterne erstellen
+            createStars();
+            
+            // Sternschnuppen erstellen
+            createShootingStars();
+            
+            // Ticket-Animation
+            setTimeout(() => {
+                document.getElementById('ticket').style.transform = 'rotate(2deg)';
+                document.getElementById('ticket').style.transition = 'transform 1s ease';
+            }, 1000);
+        });
+        
+        // Sterne erstellen
+        function createStars() {
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        
+        // Sternschnuppen erstellen
+        function createShootingStars() {
+            setInterval(() => {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                shootingStar.style.left = Math.random() * 80 + 'vw';
+                shootingStar.style.top = Math.random() * 40 + 'vh';
+                document.body.appendChild(shootingStar);
+                
+                setTimeout(() => {
+                    shootingStar.remove();
+                }, 2000);
+            }, 3000);
+        }
+        
+        // Konfetti erstellen
+        function createConfetti() {
+            const colors = ['#0066ff', '#ff3399', '#ffcc00']; // Blau, Pink, Gelb
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = Math.random() * 15 + 5 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.animationDuration = (Math.random() * 5 + 3) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    // Aufräumen nach der Animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 8000);
+                }, i * 100);
+            }
+        }
+        
+        // Juhu-Button
+        document.getElementById('celebrateBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            createConfetti();
+            this.textContent = "Wir sehen uns im Planetarium!";
+            this.style.backgroundColor = "#ff3399"; // Knalliges Pink
+            this.style.color = "white";
+        });
+    </script>
+</body>
+</html>

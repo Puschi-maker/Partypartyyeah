@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifiziere deinen Code</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0099ff, #ff66cc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            color: white;
+            overflow-x: hidden;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+        h1 {
+            color: #ff3399; /* Knalliges Pink */
+            margin-bottom: 30px;
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .input-group {
+            margin: 30px 0;
+        }
+        input {
+            padding: 15px 20px;
+            font-size: 22px;
+            border: 3px solid #0066ff; /* Knalliges Blau */
+            border-radius: 15px;
+            width: 70%;
+            max-width: 300px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            border-color: #ff3399; /* Knalliges Pink */
+            outline: none;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .btn {
+            background-color: #ffcc00; /* Knalliges Gelb */
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            background-color: #ffd633;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .error-message {
+            color: #ff3399; /* Knalliges Pink */
+            display: none;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 15px;
+            background-color: rgba(255, 51, 153, 0.1);
+            border-radius: 10px;
+        }
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+        .loading {
+            display: none;
+            margin: 20px auto;
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #0066ff; /* Knalliges Blau */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+            z-index: 1;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .shooting-star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), white 40%, white 60%, rgba(255, 255, 255, 0));
+            animation: shoot 2s linear forwards;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        @keyframes shoot {
+            from {
+                transform: translateX(0) translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(300px) translateY(300px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            z-index: 1;
+        }
+        .saturn {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to bottom, #ffcc00, #ff9900);
+            top: 10%;
+            right: 10%;
+        }
+        .saturn:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 15px;
+            background: rgba(255, 204, 0, 0.4);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(20deg);
+        }
+        .jupiter {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(to bottom, #ff9966, #ff6600);
+            bottom: 15%;
+            left: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="planet saturn"></div>
+    <div class="planet jupiter"></div>
+    
+    <div class="container">
+        <h1>Zeit für deine Überraschung!</h1>
+        <p>Gib den Gewinncode ein, den du auf der vorherigen Seite erhalten hast, um zu erfahren, wohin die Reise geht.</p>
+        
+        <div class="input-group">
+            <input type="text" id="codeInput" placeholder="Dein Code hier" maxlength="12">
+            <div class="error-message" id="errorMessage">Falscher Code. Bitte versuche es noch einmal.</div>
+        </div>
+        
+        <button id="verifyBtn" class="btn">Code überprüfen</button>
+        
+        <div class="loading" id="loading"></div>
+    </div>
+
+    <script>
+        const correctCode = '08.05.2025'; // Der richtige Code
+        
+        // Sterne erstellen
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        
+        // Sternschnuppen erstellen
+        function createShootingStars() {
+            setInterval(() => {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                shootingStar.style.left = Math.random() * 80 + 'vw';
+                shootingStar.style.top = Math.random() * 30 + 'vh';
+                document.body.appendChild(shootingStar);
+                
+                setTimeout(() => {
+                    shootingStar.remove();
+                }, 2000);
+            }, 4000);
+        }
+        
+        // Code überprüfen
+        document.getElementById('verifyBtn').addEventListener('click', verifyCode);
+        document.getElementById('codeInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyCode();
+            }
+        });
+        
+        function verifyCode() {
+            const codeInput = document.getElementById('codeInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const loading = document.getElementById('loading');
+            const inputValue = codeInput.value.trim();
+            
+            if (inputValue === '') {
+                shakeElement(codeInput);
+                errorMessage.textContent = 'Bitte gib einen Code ein.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Lade-Animation zeigen
+            loading.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            // Verzögerung simulieren
+            setTimeout(() => {
+                loading.style.display = 'none';
+                
+                if (inputValue === correctCode) {
+                    // Erfolgreich - zur Geschenkseite weiterleiten
+                    window.location.href = 'final-gift.html';
+                } else {
+                    // Fehler anzeigen
+                    shakeElement(codeInput);
+                    errorMessage.textContent = 'Falscher Code. Bitte versuche es noch einmal.';
+                    errorMessage.style.display = 'block';
+                }
+            }, 1500);
+        }
+        
+        function shakeElement(element) {
+            element.classList.add('shake');
+            setTimeout(() => {
+                element.classList.remove('shake');
+            }, 500);
+        }
+        
+        // Seite laden
+        window.addEventListener('load', function() {
+            createStars();
+            createShootingStars();
+        });
+    </script>
+</body>
+</html>
